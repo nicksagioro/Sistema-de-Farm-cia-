@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: farmacia_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: farmacia_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API FastAPI
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: farmacia_api
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/farmacia_db
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+
+  # Frontend será executado localmente (Qt5 requer display)
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: farmacia_network
