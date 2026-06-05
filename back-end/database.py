@@ -1,9 +1,8 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.pool import NullPool
-import os
 
-# Configuração do banco de dados PostgreSQL
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql://postgres:password@localhost:5432/farmacia_db"
@@ -16,6 +15,8 @@ engine = create_engine(
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Base única para mapeamento e detecção automática pelo init_db()
 Base = declarative_base()
 
 def get_db():
@@ -26,5 +27,5 @@ def get_db():
         db.close()
 
 def init_db():
-    """Cria todas as tabelas no banco de dados"""
+    """Cria automaticamente todas as tabelas mapeadas que herdam de Base"""
     Base.metadata.create_all(bind=engine)
