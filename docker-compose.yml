@@ -36,8 +36,7 @@ services:
       - .:/app
     command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
 
-  # O frontend Qt5 requer display e deve ser executado localmente:
-  #   python main.py
+ 
 
 volumes:
   postgres_data:

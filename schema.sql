@@ -1,10 +1,6 @@
 -- ============================================================
 --  BANCO DE DADOS - SISTEMA DE FARMACIA
---  Execute este script no DBeaver conectado ao PostgreSQL
 -- ============================================================
-
--- Criar banco (execute separadamente se necessario)
--- CREATE DATABASE farmacia_db;
 
 -- ============================================================
 --  TABELA: FORNECEDORES
