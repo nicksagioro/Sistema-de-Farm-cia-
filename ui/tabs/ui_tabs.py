@@ -6,7 +6,7 @@ Modulos:
     ui_tabs_fv  -> AbaFornecedores, AbaVendas
 """
 
-from ui_tabs_mc import AbaClientes, AbaMedicamentos
-from ui_tabs_fv import AbaFornecedores, AbaVendas
+from ui.tabs.ui_tabs_mc import AbaClientes, AbaMedicamentos
+from ui.tabs.ui_tabs_fv import AbaFornecedores, AbaVendas
 
 __all__ = ["AbaMedicamentos", "AbaClientes", "AbaFornecedores", "AbaVendas"]

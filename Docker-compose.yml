@@ -4,11 +4,10 @@ services:
     container_name: farmacia_postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456789
+      POSTGRES_PASSWORD: "password"
       POSTGRES_DB: farmacia_db
     ports:
-      - ports:
-        - "5433:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
@@ -24,9 +23,9 @@ services:
       dockerfile: Dockerfile.txt
     container_name: farmacia_api
     environment:
-      DATABASE_URL: postgresql://postgres:123456789@postgres:5433/farmacia_db
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/farmacia_db
     ports:
-      - "8000:8000"
+      - "8080:8000"
     depends_on:
       postgres:
         condition: service_healthy

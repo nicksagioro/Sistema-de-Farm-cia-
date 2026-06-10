@@ -15,7 +15,8 @@ import requests
 class APIClient:
     """Cliente HTTP para a API de farmacia."""
 
-    def __init__(self, base_url: str = "http://localhost:8000/api"):
+
+    def __init__(self, base_url: str = "http://localhost:8080/api"):
         self.base_url = base_url
         self.session = requests.Session()
 
